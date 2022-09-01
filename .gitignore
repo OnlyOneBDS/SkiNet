@@ -26,5 +26,5 @@ bld/
 ##
 ## App Specific
 ##
-*.db
+*.db*
 SkiNet.Svc/appsettings.json
