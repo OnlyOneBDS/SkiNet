@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>    
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SkiNet.Core\SkiNet.Core.csproj" />
+  </ItemGroup>
+
+</Project>
