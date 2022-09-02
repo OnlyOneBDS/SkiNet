@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SkiNet.Core.Interfaces;
 using SkiNet.Infrastructure.Data;
+using SkiNet.Svc.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<StoreContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 // Configure the HTTP request pipeline.
 
@@ -27,7 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
