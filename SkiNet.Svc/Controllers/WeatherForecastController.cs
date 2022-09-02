@@ -2,9 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SkiNet.Svc.Controllers;
 
-[ApiController]
-[Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+[ApiExplorerSettings(IgnoreApi = true)]
+public class WeatherForecastController : BaseApiController
 {
   private static readonly string[] Summaries = new[]
   {

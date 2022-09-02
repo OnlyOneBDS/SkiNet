@@ -4,6 +4,7 @@ using SkiNet.Core.Entities;
 using SkiNet.Core.Interfaces;
 using SkiNet.Core.Specifications;
 using SkiNet.Svc.DTOs;
+using SkiNet.Svc.Errors;
 
 namespace SkiNet.Svc.Controllers;
 
@@ -32,10 +33,17 @@ public class ProductsController : BaseApiController
   }
 
   [HttpGet("{id}")]
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
   public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
   {
     var spec = new ProductsWithTypesAndBrandsSpecification(id);
     var product = await _productsRepo.GetEntityWithSpec(spec);
+
+    if (product == null)
+    {
+      return NotFound(new ApiResponse(404));
+    }
 
     return _mapper.Map<Product, ProductToReturnDto>(product);
   }

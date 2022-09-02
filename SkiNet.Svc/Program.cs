@@ -1,37 +1,37 @@
 using Microsoft.EntityFrameworkCore;
-using SkiNet.Core.Interfaces;
 using SkiNet.Infrastructure.Data;
+using SkiNet.Svc.Extensions;
 using SkiNet.Svc.Helpers;
+using SkiNet.Svc.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 builder.Services.AddDbContext<StoreContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+builder.Services.AddApplicationServices();
 
-builder.Services.AddAutoMapper(typeof(MappingProfiles));
+builder.Services.AddSwaggerDocumentation();
 
 // Configure the HTTP request pipeline.
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-  app.UseSwagger();
-  app.UseSwaggerUI();
-}
+app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseSwaggerDocumentation();
+
+app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
+
 app.UseAuthorization();
 
 app.MapControllers();
