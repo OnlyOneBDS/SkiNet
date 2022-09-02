@@ -18,6 +18,14 @@ builder.Services.AddApplicationServices();
 
 builder.Services.AddSwaggerDocumentation();
 
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy("CorsPolicy", policy =>
+  {
+    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+  });
+});
+
 // Configure the HTTP request pipeline.
 
 var app = builder.Build();
@@ -31,6 +39,8 @@ app.UseStatusCodePagesWithReExecute("/errors/{0}");
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 
