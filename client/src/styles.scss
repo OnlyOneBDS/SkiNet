@@ -1,10 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* Importing Bootswatch theme variables */
+@import "~bootswatch/dist/united/variables";
+
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
+
+/* Importing Bootswatch */
+@import "~bootswatch/dist/united/bootswatch";
 
 /* Importing Datepicker SCSS file. */
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
 /* Importing toastr SCSS file */
 @import '~ngx-toastr/toastr';
+
+@import "node_modules/ngx-spinner/animations/line-scale";
+
+label.xng-breadcrumb-trail {
+  color: orange;
+}
