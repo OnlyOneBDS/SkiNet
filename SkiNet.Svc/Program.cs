@@ -3,6 +3,7 @@ using SkiNet.Infrastructure.Data;
 using SkiNet.Svc.Extensions;
 using SkiNet.Svc.Helpers;
 using SkiNet.Svc.Middleware;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,12 @@ builder.Services.AddAutoMapper(typeof(MappingProfiles));
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<StoreContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddSingleton<IConnectionMultiplexer>(options =>
+{
+  var configuration = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"), true);
+  return ConnectionMultiplexer.Connect(configuration);
+});
 
 builder.Services.AddApplicationServices();
 
