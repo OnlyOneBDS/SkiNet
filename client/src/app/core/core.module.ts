@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToastrModule } from 'ngx-toastr';
 import { BreadcrumbModule } from 'xng-breadcrumb';
 
@@ -23,6 +24,7 @@ import { TestErrorComponent } from './test-error/test-error.component';
   imports: [
     BreadcrumbModule,
     CommonModule,
+    FontAwesomeModule,
     RouterModule,
     ToastrModule.forRoot({
       positionClass: "toast-bottom-right",

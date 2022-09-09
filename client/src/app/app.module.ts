@@ -20,11 +20,11 @@ import { HomeModule } from "./home/home.module";
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    CoreModule,
     FontAwesomeModule,
-    HomeModule,
     HttpClientModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    CoreModule,
+    HomeModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

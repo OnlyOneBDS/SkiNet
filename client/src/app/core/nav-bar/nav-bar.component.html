@@ -1,37 +1,19 @@
-<!-- <div class="d-flex flex-column flex-md-row align-items-center justify-content-between p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-  <img src="/assets/images/logo.png" style="max-height: 70px;" alt="logo" />
-  <nav class="my-2 my-md-0 mr-md-3">
-    <a class="py-2 text-dark" href="#">Features</a>
-    <a class="py-2 text-dark" href="#">Enterprise</a>
-    <a class="py-2 text-dark" href="#">Support</a>
-    <a class="py-2 text-dark" href="#">Pricing</a>
+<header class="align-items-center border-bottom d-flex flex-column flex-md-row justify-content-between p-3 px-md-4 shadow-sm">
+  <img src="/assets/images/logo.png" alt="logo" class="logo" style="max-height: 70px;" routerLink="/" />
+  <nav class="me-md-3 my-2 my-md-0 text-uppercase">
+    <a class="p-2" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a class="p-2" routerLink="/shop" routerLinkActive="active">Shop</a>
+    <a class="p-2" routerLink="/test-error" routerLinkActive="active">Errors</a>
   </nav>
-  <div class="d-flex align-items-center">
-    <a>
-      <fa-icon [icon]="faShoppingCart" class="mr-5 text-dark" size="2x"></fa-icon>
+  <div class="align-items-center d-flex">
+    <a class="me-4 position-relative" routerLink="/basket">
+      <fa-icon [icon]="faShoppingCart" class="fa-2x text-dark"></fa-icon>
+      <span class="badge bg-danger border border-light position-absolute rounded-pill start-50 top-0" *ngIf="(basket$ | async) as basket">
+        {{basket.items.length}}
+        <span class="visually-hidden">items in basket</span>
+      </span>
     </a>
-    <a class="btn btn-outline-secondary mr-2">Login</a>
-    <a class="btn btn-outline-secondary mr-3">Sign Up</a>
+    <a class="btn btn-outline-primary me-2">Login</a>
+    <a class="btn btn-outline-primary me-3">Sign Up</a>
   </div>
-</div> -->
-<div class="container-fluid">
-  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 border-bottom">
-    <a routerLink="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-      <img src="/assets/images/logo.png" style="max-height: 70px;" alt="logo" />
-    </a>
-
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 text-uppercase">
-      <li><a class="nav-link px-2" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
-      <li><a class="nav-link px-2" routerLink="/shop" routerLinkActive="active">Shop</a></li>
-      <li><a class="nav-link px-2" routerLink="/test-error" routerLinkActive="active">Errors</a></li>
-    </ul>
-    <div class="col-md-3 text-end">
-      <!-- <a class="position-relative">
-        <fa-icon [icon]="faShoppingCart" class="mr-5 text-dark" size="2x"></fa-icon>
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
-      </a> -->
-      <button type="button" class="btn btn-outline-primary me-2">Login</button>
-      <button type="button" class="btn btn-primary">Sign Up</button>
-    </div>
-  </header>
-</div>
+</header>
