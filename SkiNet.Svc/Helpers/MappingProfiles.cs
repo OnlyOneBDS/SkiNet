@@ -11,6 +11,10 @@ public class MappingProfiles : Profile
   {
     CreateMap<Address, AddressDto>().ReverseMap();
 
+    CreateMap<BasketItemDto, BasketItem>();
+
+    CreateMap<CustomerBasketDto, CustomerBasket>();
+
     CreateMap<Product, ProductToReturnDto>()
       .ForMember(d => d.ProductBrand, o => o.MapFrom(s => s.ProductBrand.Name))
       .ForMember(d => d.ProductType, o => o.MapFrom(s => s.ProductType.Name))
