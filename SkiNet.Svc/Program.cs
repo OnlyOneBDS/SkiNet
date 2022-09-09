@@ -1,8 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using SkiNet.Infrastructure.Data;
-using SkiNet.Svc.Extensions;
-using SkiNet.Svc.Helpers;
-using SkiNet.Svc.Middleware;
+using SkiNet.Core.Entities.Identity;
 using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +11,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<StoreContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("IdentityConnection")));
+
 builder.Services.AddSingleton<IConnectionMultiplexer>(options =>
 {
   var configuration = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"), true);
@@ -22,6 +20,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(options =>
 });
 
 builder.Services.AddApplicationServices();
+builder.Services.AddIdentityServices(builder.Configuration);
 
 builder.Services.AddSwaggerDocumentation();
 
@@ -49,6 +48,7 @@ app.UseStaticFiles();
 
 app.UseCors("CorsPolicy");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
@@ -64,6 +64,12 @@ try
 
   await context.Database.MigrateAsync();
   await StoreContextSeed.SeedAsync(context, loggerFactory);
+
+  var userManager = services.GetRequiredService<UserManager<AppUser>>();
+  var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+
+  await identityContext.Database.MigrateAsync();
+  await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
 }
 catch (Exception ex)
 {

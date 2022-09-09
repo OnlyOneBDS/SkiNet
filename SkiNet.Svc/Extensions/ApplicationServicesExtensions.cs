@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using SkiNet.Core.Interfaces;
-using SkiNet.Infrastructure.Data;
+using SkiNet.Infrastructure.Services;
 using SkiNet.Svc.Errors;
 
 namespace SkiNet.Svc.Extensions;
@@ -12,6 +11,8 @@ public static class ApplicationServicesExtensions
     services.AddScoped<IProductRepository, ProductRepository>();
     services.AddScoped<IBasketRepository, BasketRepository>();
     services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+
+    services.AddScoped<ITokenService, TokenService>();
 
     services.Configure<ApiBehaviorOptions>(options =>
     {

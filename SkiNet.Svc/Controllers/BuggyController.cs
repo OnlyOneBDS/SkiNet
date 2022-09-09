@@ -1,5 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
-using SkiNet.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using SkiNet.Svc.Errors;
 
 namespace SkiNet.Svc.Controllers;
@@ -11,6 +10,13 @@ public class BuggyController : BaseApiController
   public BuggyController(StoreContext context)
   {
     _context = context;
+  }
+
+  [Authorize]
+  [HttpGet("testauth")]
+  public ActionResult<string> GetSecretText()
+  {
+    return "secret stuff";
   }
 
   [HttpGet("notfound")]
