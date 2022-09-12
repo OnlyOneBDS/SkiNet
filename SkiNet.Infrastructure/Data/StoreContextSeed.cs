@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using SkiNet.Core.Entities;
+using SkiNet.Core.Entities.OrderAggregate;
 
 namespace SkiNet.Infrastructure.Data;
 
@@ -44,6 +45,19 @@ public class StoreContextSeed
         foreach (var item in products)
         {
           context.Products.Add(item);
+        }
+
+        await context.SaveChangesAsync();
+      }
+
+      if (!context.DeliveryMethods.Any())
+      {
+        var dmData = File.ReadAllText("../SkiNet.Infrastructure/Data/SeedData/delivery.json");
+        var methods = JsonSerializer.Deserialize<List<DeliveryMethod>>(dmData);
+
+        foreach (var item in methods)
+        {
+          context.DeliveryMethods.Add(item);
         }
 
         await context.SaveChangesAsync();
