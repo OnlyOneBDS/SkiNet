@@ -5,6 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToastrModule } from 'ngx-toastr';
 import { BreadcrumbModule } from 'xng-breadcrumb';
 
+import { SharedModule } from '../shared/shared.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SectionHeaderComponent } from './section-header/section-header.component';
@@ -17,15 +18,16 @@ import { TestErrorComponent } from './test-error/test-error.component';
   declarations: [
     NavBarComponent,
     NotFoundComponent,
+    SectionHeaderComponent,
     ServerErrorComponent,
-    TestErrorComponent,
-    SectionHeaderComponent
+    TestErrorComponent
   ],
   imports: [
     BreadcrumbModule,
     CommonModule,
     FontAwesomeModule,
     RouterModule,
+    SharedModule,
     ToastrModule.forRoot({
       positionClass: "toast-bottom-right",
       preventDuplicates: true

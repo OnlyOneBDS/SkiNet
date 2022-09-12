@@ -13,7 +13,28 @@
         <span class="visually-hidden">items in basket</span>
       </span>
     </a>
-    <a class="btn btn-outline-primary me-2">Login</a>
-    <a class="btn btn-outline-primary me-3">Sign Up</a>
+    <ng-container *ngIf="(currentUser$ | async) === null">
+      <a class="btn btn-outline-primary me-2" routerLink="/account/login">Login</a>
+      <a class="btn btn-outline-primary me-3" routerLink="/account/register">Sign Up</a>
+    </ng-container>
+    <ng-container *ngIf="(currentUser$ | async)">
+      <div class="dropdown ms-3 me-5" dropdown>
+        <a class="dropdown-toggle" style="cursor: pointer;" dropdownToggle>
+          <strong>Welcome {{(currentUser$ | async).displayName}}</strong>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" style="cursor: pointer;" *dropdownMenu>
+          <a class="dropdown-item d-flex align-items-center py-2" routerLink="/basket">
+            <fa-icon [icon]="faShoppingCart" class="me-3"></fa-icon> View Basket
+          </a>
+          <a class="dropdown-item d-flex align-items-center py-2" routerLink="/orders">
+            <fa-icon [icon]="faHistory" class="me-3"></fa-icon> View Orders
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item d-flex align-items-center py-2" (click)="logout()">
+            <fa-icon [icon]="faSignOut" class="me-3"></fa-icon> Logout
+          </a>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </header>
