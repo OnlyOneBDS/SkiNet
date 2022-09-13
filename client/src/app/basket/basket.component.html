@@ -7,60 +7,11 @@
       <div class="container">
         <div class="row">
           <div class="col-12 pt-5 mb-1">
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th class="border-0 bg-light" scope="col" style="width: 60%;">
-                      <div class="p-2 px-3 text-uppercase">Product</div>
-                    </th>
-                    <th class="border-0 bg-light text-center" scope="col" style="width: 10%;">
-                      <div class="p-2 text-uppercase">Price</div>
-                    </th>
-                    <th class="border-0 bg-light text-center" scope="col" style="width: 10%;">
-                      <div class="p-2 text-uppercase">Quantity</div>
-                    </th>
-                    <th class="border-0 bg-light text-center" scope="col" style="width: 10%;">
-                      <div class="p-2 text-uppercase">Total</div>
-                    </th>
-                    <th class="border-0 bg-light text-center" scope="col" style="width: 10%;">
-                      <div class="p-2 text-uppercase">Remove</div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of basket.items">
-                    <th scope="row">
-                      <div class="p-2">
-                        <img src="{{item.imageUrl}}" alt="{{item.productName}}" class="img-fluid" style="max-height: 50px;" />
-                        <div class="ms-3 d-inline-block align-middle">
-                          <h5 class="mb-0">
-                            <a class="text-dark" routerLink="/shop/{{item.id}}">{{item.productName}}</a>
-                          </h5>
-                          <span class="text-muted fw-normal fst-italic d-block">
-                            Type: {{item.type}}
-                          </span>
-                        </div>
-                      </div>
-                    </th>
-                    <td class="align-middle fw-bold text-end" style="padding-right: 2rem;">{{item.price | currency}}</td>
-                    <td class="align-middle">
-                      <div class="align-items-center text-center">
-                        <fa-icon [icon]="faMinusCircle" class="text-warning me-2" style="cursor: pointer;" (click)="decrementItemQuantity(item)"></fa-icon>
-                        <span class="fw-bold">{{item.quantity}}</span>
-                        <fa-icon [icon]="faPlusCircle" class="text-warning mx-2" style="cursor: pointer;" (click)="incrementItemQuantity(item)"></fa-icon>
-                      </div>
-                    </td>
-                    <td class="align-middle fw-bold ms-2 text-end" style="padding-right: 2rem;">{{item.price * item.quantity | currency}}</td>
-                    <td class="align-middle text-center">
-                      <a class="text-danger">
-                        <fa-icon [icon]="faTrash" style="cursor: pointer;" (click)="removeBasketItem(item)"></fa-icon>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <app-basket-summary
+              (decrement)="decrementItemQuantity($event)"
+              (increment)="incrementItemQuantity($event)"
+              (remove)="removeBasketItem($event)">
+            </app-basket-summary>
           </div>
         </div>
         <div class="row">

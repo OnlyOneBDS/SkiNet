@@ -16,10 +16,4 @@
   <div class="invalid-feedback d-block" *ngIf="(controlDir && controlDir.control && !controlDir.control.valid && controlDir.control.dirty)">
     <span *ngIf="controlDir.control.errors?.emailExists">Email address already exists</span>
   </div>
-  <!-- <span class="text-danger" *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched && loginForm.get('email').errors['required']">
-    Email is required
-  </span>
-  <span class="text-danger" *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched && loginForm.get('email').errors['pattern']">
-    Email is not valid
-  </span> -->
 </div>

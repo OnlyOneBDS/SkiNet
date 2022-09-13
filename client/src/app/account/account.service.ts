@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { map, of, ReplaySubject } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
+import { IAddress } from '../shared/models/address';
 import { IUser } from '../shared/models/user';
 
 @Injectable({
@@ -22,12 +23,12 @@ export class AccountService {
       return of(null);
     }
 
-    let headers = new HttpHeaders();
+    //let headers = new HttpHeaders();
 
-    headers.set("Authorization", `Bearer ${token}`);
+    //headers.set("Authorization", `Bearer ${token}`);
 
     return this.http
-      .get(this.baseUrl + "account", { headers })
+      .get(this.baseUrl + "account", { headers: new HttpHeaders({ "Authorization": `Bearer ${token}` }) })
       .pipe(
         map((user: IUser) => {
           if (user) {
@@ -71,7 +72,14 @@ export class AccountService {
   }
 
   checkEmailExists(email: string) {
-    return this.http
-      .get(this.baseUrl + "account/emailexists?email=" + email);
+    return this.http.get(this.baseUrl + "account/emailexists?email=" + email);
+  }
+
+  getUserAddress() {
+    return this.http.get<IAddress>(this.baseUrl + "account/address");
+  }
+
+  updateUserAddress(address: IAddress) {
+    return this.http.put<IAddress>(this.baseUrl + "account/address", address);
   }
 }
