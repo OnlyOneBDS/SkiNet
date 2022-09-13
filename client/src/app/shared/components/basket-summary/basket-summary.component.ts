@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faMinusCircle, faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Observable } from 'rxjs';
 
-import { BasketService } from 'src/app/basket/basket.service';
-import { IBasket, IBasketItem } from '../../models/basket';
+import { IBasketItem } from '../../models/basket';
+import { IOrderItem } from '../../models/order';
 
 @Component({
   selector: 'app-basket-summary',
@@ -14,17 +13,16 @@ export class BasketSummaryComponent implements OnInit {
   faMinusCircle = faMinusCircle;
   faPlusCircle = faPlusCircle;
   faTrash = faTrash;
-  basket$: Observable<IBasket>;
   @Output() decrement: EventEmitter<IBasketItem> = new EventEmitter<IBasketItem>();
   @Output() increment: EventEmitter<IBasketItem> = new EventEmitter<IBasketItem>();
   @Output() remove: EventEmitter<IBasketItem> = new EventEmitter<IBasketItem>();
+  @Input() items: IBasketItem[] | IOrderItem[] = [];
   @Input() isBasket = true;
+  @Input() isOrder = false;
 
-  constructor(private basketService: BasketService) { }
+  constructor() { }
 
-  ngOnInit(): void {
-    this.basket$ = this.basketService.basket$
-  }
+  ngOnInit(): void { }
 
   decrementItemQuantity(item: IBasketItem) {
     this.decrement.emit(item);

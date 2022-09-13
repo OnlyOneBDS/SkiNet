@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { faMinusCircle, faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 
-import { IBasket, IBasketItem } from '../shared/models/basket';
+import { IBasket, IBasketItem, IBasketTotals } from '../shared/models/basket';
 import { BasketService } from './basket.service';
 
 @Component({
@@ -15,11 +15,13 @@ export class BasketComponent implements OnInit {
   faPlusCircle = faPlusCircle;
   faTrash = faTrash;
   basket$: Observable<IBasket>;
+  basketTotals$: Observable<IBasketTotals>;
 
   constructor(private basketService: BasketService) { }
 
   ngOnInit(): void {
     this.basket$ = this.basketService.basket$;
+    this.basketTotals$ = this.basketService.basketTotals$;
   }
 
   removeBasketItem(item: IBasketItem) {
