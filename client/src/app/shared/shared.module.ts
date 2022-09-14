@@ -1,7 +1,7 @@
 import { CdkStepperModule } from "@angular/cdk/stepper";
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from "@angular/router";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CarouselModule } from "ngx-bootstrap/carousel";
@@ -29,6 +29,7 @@ import { TextInputComponent } from './components/text-input/text-input.component
     CdkStepperModule,
     CommonModule,
     FontAwesomeModule,
+    FormsModule,
     ReactiveFormsModule,
     CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
@@ -39,6 +40,7 @@ import { TextInputComponent } from './components/text-input/text-input.component
     BsDropdownModule,
     CarouselModule,
     CdkStepperModule,
+    FormsModule,
     PaginationModule,
     ReactiveFormsModule,
     BasketSummaryComponent,

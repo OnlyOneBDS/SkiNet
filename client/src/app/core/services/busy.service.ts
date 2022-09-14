@@ -11,12 +11,13 @@ export class BusyService {
 
   busy() {
     this.busyRequestCount++;
-    this.spinnerService.show(undefined, {
-      color: "#333333",
-      bdColor: "rgba(255, 255, 255, 0.7)",
-      size: "medium",
-      type: "line-scale",
-    });
+    this.spinnerService.show();
+    // this.spinnerService.show(undefined, {
+    //   color: "#333333",
+    //   bdColor: "rgba(255, 255, 255, 0.7)",
+    //   size: "medium",
+    //   type: "line-scale",
+    // });
   }
 
   idle() {

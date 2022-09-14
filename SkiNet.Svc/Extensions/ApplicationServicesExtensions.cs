@@ -8,6 +8,8 @@ public static class ApplicationServicesExtensions
 {
   public static IServiceCollection AddApplicationServices(this IServiceCollection services)
   {
+    services.AddSingleton<IResponseCacheService, ResponseCacheService>();
+
     services.AddScoped<IUnitOfWork, UnitOfWork>();
     services.AddScoped<IProductRepository, ProductRepository>();
     services.AddScoped<IBasketRepository, BasketRepository>();
