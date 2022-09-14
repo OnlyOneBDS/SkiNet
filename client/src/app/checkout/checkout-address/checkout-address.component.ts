@@ -4,6 +4,7 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 
 import { AccountService } from 'src/app/account/account.service';
+import { IAddress } from 'src/app/shared/models/address';
 
 @Component({
   selector: 'app-checkout-address',
@@ -21,12 +22,17 @@ export class CheckoutAddressComponent implements OnInit {
   }
 
   saveUserAddress() {
-    this.accountService.updateUserAddress(this.checkoutForm.get("addressForm").value).subscribe({
-      next: () => this.toastr.success,
-      error: (e) => {
-        this.toastr.error(e.message);
-        console.log(e);
-      }
-    });
+    this.accountService
+      .updateUserAddress(this.checkoutForm.get("addressForm").value)
+      .subscribe({
+        next: (address: IAddress) => {
+          this.toastr.success;
+          this.checkoutForm.get("addressForm").reset(address);
+        },
+        error: (e) => {
+          this.toastr.error(e.message);
+          console.log(e);
+        }
+      });
   }
 }

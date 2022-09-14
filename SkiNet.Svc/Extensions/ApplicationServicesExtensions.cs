@@ -14,6 +14,7 @@ public static class ApplicationServicesExtensions
     services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
 
     services.AddScoped<IOrderService, OrderService>();
+    services.AddScoped<IPaymentService, PaymentService>();
     services.AddScoped<ITokenService, TokenService>();
 
     services.Configure<ApiBehaviorOptions>(options =>

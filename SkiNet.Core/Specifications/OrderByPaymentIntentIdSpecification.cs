@@ -1,0 +1,8 @@
+using SkiNet.Core.Entities.OrderAggregate;
+
+namespace SkiNet.Core.Specifications;
+
+public class OrderByPaymentIntentIdSpecification : BaseSpecification<Order>
+{
+  public OrderByPaymentIntentIdSpecification(string paymentIntentId) : base(o => o.PaymentIntentId == paymentIntentId) { }
+}
