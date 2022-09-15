@@ -1,3 +1,4 @@
+using Microsoft.Extensions.FileProviders;
 using SkiNet.Core.Entities.Identity;
 using StackExchange.Redis;
 
@@ -9,9 +10,9 @@ builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<StoreContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<StoreContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("IdentityConnection")));
+builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("IdentityConnection")));
 
 builder.Services.AddSingleton<IConnectionMultiplexer>(options =>
 {
@@ -45,6 +46,11 @@ app.UseStatusCodePagesWithReExecute("/errors/{0}");
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+  FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Content")),
+  RequestPath = "/content"
+});
 
 app.UseCors("CorsPolicy");
 
@@ -52,7 +58,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-//app.MapFallbackToController();
+app.MapFallbackToController("Index", "Fallback");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

@@ -28,4 +28,6 @@ bld/
 ##
 *.db*
 *.rdb
+publish/
+SkiNet.Svc/wwwroot/
 SkiNet.Svc/appsettings.json

@@ -11,12 +11,13 @@ public class PaymentsController : BaseApiController
 {
   private readonly IPaymentService _paymentService;
   private readonly ILogger<PaymentsController> _logger;
-  private const string WhSecret = "whsec_9e9b50ec2a200ebce1b585d6e90434b008222830367e93e46582252f29c880ad";
+  private readonly string _whSecret;
 
-  public PaymentsController(IPaymentService paymentService, ILogger<PaymentsController> logger)
+  public PaymentsController(IPaymentService paymentService, ILogger<PaymentsController> logger, IConfiguration config)
   {
     _paymentService = paymentService;
     _logger = logger;
+    _whSecret = config.GetSection("StripSettings:WhSecret").Value;
   }
 
   [Authorize]
@@ -37,7 +38,7 @@ public class PaymentsController : BaseApiController
   public async Task<ActionResult> StripeWebhook()
   {
     var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-    var stripEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], WhSecret);
+    var stripEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], _whSecret);
 
     PaymentIntent intent;
     Order order;

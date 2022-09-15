@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Content\**" CopyToPublishDirectory="PreserveNewest" />
     <ProjectReference Include="..\SkiNet.Infrastructure\SkiNet.Infrastructure.csproj" />
   </ItemGroup>
 
